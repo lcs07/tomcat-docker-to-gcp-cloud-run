@@ -6,6 +6,8 @@ LABEL maintainer="your@email.com"
 
 
 # GCP 사용자 인증 정보 설정 방법
+# GCP IAM에서 서비스 계정을 생성하고 인증 정보(service-account-key.json) 키 파일을 다운로드 받기
+# https://cloud.google.com/docs/authentication/production#manually
 # https://cloud.google.com/docs/authentication/production#passing_variable
 # https://github.com/GoogleCloudPlatform/java-docs-samples/tree/master/cloud-sql/mysql/servlet
 

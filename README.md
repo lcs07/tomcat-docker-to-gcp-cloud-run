@@ -40,8 +40,9 @@ Spring Boot 프로젝트를 ROOT.war 파일로 생성
 Local PC에 작업할 폴더 생성
 
 ## Docker 작업할 파일 생성 및 복사
-생성한 폴더에 Dockerfile 파일 생성 및 ROOT.war 파일 복사해서 붙여넣기
-`필요시 GCP 사용자 인증 정보(service-account-key.json) 파일도 복사해서 붙여넣기`
+생성한 폴더에 Dockerfile 파일 생성 및 ROOT.war 파일 복사해서 붙여넣기  
+> `필요시 GCP 사용자 인증 정보(service-account-key.json) 파일도 복사해서 붙여넣기`
+> https://cloud.google.com/docs/authentication/production#manually
 
 ## Dockerfile 파일 내용
 ```
@@ -53,6 +54,8 @@ LABEL maintainer="your@email.com"
 
 
 # GCP 사용자 인증 정보 설정 방법
+# GCP IAM에서 서비스 계정을 생성하고 인증 정보(service-account-key.json) 키 파일을 다운로드 받기
+# https://cloud.google.com/docs/authentication/production#manually
 # https://cloud.google.com/docs/authentication/production#passing_variable
 # https://github.com/GoogleCloudPlatform/java-docs-samples/tree/master/cloud-sql/mysql/servlet
 
