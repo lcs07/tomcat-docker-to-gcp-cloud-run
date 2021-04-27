@@ -33,9 +33,15 @@ Spring Boot 프로젝트를 ROOT.war 파일로 생성
 # Docker
 > https://www.cprime.com/resources/blog/deploying-your-first-web-app-to-tomcat-on-docker/  
 > https://github.com/softwareyoga/docker-tomcat-tutorial  
+> https://cloud.google.com/docs/authentication/production#passing_variable  
+> https://github.com/GoogleCloudPlatform/java-docs-samples/tree/master/cloud-sql/mysql/servlet  
 
 ## Docker 작업할 폴더 생성
-생성한 폴더에 Dockerfile 파일 생성 및 ROOT.war 파일 붙여넣기
+Local PC에 작업할 폴더 생성
+
+## Docker 작업할 파일 생성 및 복사
+생성한 폴더에 Dockerfile 파일 생성 및 ROOT.war 파일 복사해서 붙여넣기
+`필요시 GCP 사용자 인증 정보(service-account-key.json) 파일도 복사해서 붙여넣기`
 
 ## Dockerfile 파일 내용
 ```
@@ -45,9 +51,25 @@ FROM tomcat:9.0.45-jdk15-openjdk-buster
 # 작업자 이메일 주소
 LABEL maintainer="your@email.com"
 
+
+# GCP 사용자 인증 정보 설정 방법
+# https://cloud.google.com/docs/authentication/production#passing_variable
+# https://github.com/GoogleCloudPlatform/java-docs-samples/tree/master/cloud-sql/mysql/servlet
+
+# [필요시] Loacl의 GCP 사용자 인증 정보(service-account-key.json) 파일을 Docker Image의 /root/ 폴더로 복사하기
+# ADD service-account-key.json /root/
+
+# [필요시] Docker Image의 GCP 사용자 인증 정보를 환경 변수에 설정
+# ENV GOOGLE_APPLICATION_CREDENTIALS="/root/service-account-key.json"
+
+
+# Loacl의 ROOT.war 파일을 Docker Image의 /usr/local/tomcat/webapps/ 폴더로 복사하기
 ADD ROOT.war /usr/local/tomcat/webapps/
 
+# 포트 설정
 EXPOSE 8080
+
+# Docker Image의 Tomcat 실행
 CMD ["catalina.sh", "run"]
 ```
 
@@ -84,6 +106,10 @@ docker push gcr.io/{GCP_PROJECT_ID}/{GCP_IMAGE_NAME}
 > ```shell
 > gcloud auth configure-docker
 > ```
+
+<br/>
+
+# GCP Cloud Run
 
 ## GCP Cloud Run 배포
 GCP Container Registry에서 해당 이미지를 Cloud Run에 배포
